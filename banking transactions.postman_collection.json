@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "c8636905-3a9b-4b7f-b081-773c78104e84",
+		"name": "banking transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all transactions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"value\": 444.55,\r\n\t\"currency\": \"CAD\",\r\n\t\"from_acct\": \"acct-01-2523\",\r\n\t\"to_acct\": \"acct-01-2141\",\r\n\t\"from_cust_id\": \"cust-id-01\",\r\n\t\"to_cust_id\": \"cust-id-02\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get first transaction",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get unexisting transaction",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/150",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						"150"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete existing transaction",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete not existing transaction",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"value\": 444.55,\r\n\t\"currency\": \"CAD\",\r\n\t\"from_acct\": \"acct-01-2523\",\r\n\t\"to_acct\": \"acct-01-2141\",\r\n\t\"from_cust_id\": \"cust-id-01\",\r\n\t\"to_cust_id\": \"cust-id-02\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fails to create transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\": 33,\r\n\t\"value\": 444.55,\r\n\t\"currency\": \"CAD\",\r\n\t\"from_acct\": \"acct-01-2523\",\r\n\t\"to_acct\": \"acct-01-2141\",\r\n\t\"from_cust_id\": \"cust-id-01\",\r\n\t\"to_cust_id\": \"cust-id-02\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change second transaction",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 2,\n        \"value\": 77.88,\n        \"currency\": \"CAD\",\n        \"from_acct\": \"acct-01-2141\",\n        \"to_acct\": \"acct-02-6325\",\n        \"from_cust_id\": \"cust-id-02\",\n        \"to_cust_id\": \"cust-id-02\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change second not existent transaction",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 77,\n        \"value\": 77.88,\n        \"currency\": \"CAD\",\n        \"from_acct\": \"acct-01-2141\",\n        \"to_acct\": \"acct-02-6325\",\n        \"from_cust_id\": \"cust-id-02\",\n        \"to_cust_id\": \"cust-id-02\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8082/bnk-txns/api/v1.0/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"bnk-txns",
+						"api",
+						"v1.0",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
