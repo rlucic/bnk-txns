@@ -6,6 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel(description="Banking transaction model", value="BankingTransaction")
+
 @XmlRootElement
 @Entity
 @Table(name="bankingtransactions")
