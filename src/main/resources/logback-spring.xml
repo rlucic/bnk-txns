@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- this uses the base.xml, console-appender.xml and the file-appender.xml configuration files defined by Spring Boot -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="com.ro.banking.transactions" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+ </configuration>
