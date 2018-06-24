@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ro.banking.transactions.model.BankingTransaction;
 import com.ro.banking.transactions.service.BankingTransactionsService;
 
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import java.util.List;
-
-import javax.websocket.server.PathParam;
 
 
 @RestController
@@ -56,7 +55,7 @@ public class BankingTransactionsEndpoint {
 	public ResponseEntity<List<BankingTransaction>> greaterThan(@RequestParam(name="val", required=true) String value){
 		System.out.println("Inside transactions value greaterThan: " + value);
 		 
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<List<BankingTransaction>>(HttpStatus.OK);
 	}
 
 	@RequestMapping(path="/max", method=RequestMethod.GET)
