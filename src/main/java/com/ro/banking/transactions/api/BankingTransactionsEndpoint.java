@@ -44,25 +44,43 @@ public class BankingTransactionsEndpoint {
 	)	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<BankingTransaction>> transactions(){
-		System.out.println("Inside getTransactions");
 		logger.debug("Inside getTransactions");
 		List<BankingTransaction> transactions =bankingService.getAllBankingTransactions();
 		
 		return new ResponseEntity<List<BankingTransaction>>(transactions, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value="Returns all transactions ABOVE a min value", response=BankingTransaction.class)
+	@ApiResponses(value = {
+			@ApiResponse(code=200, message="Returns all transactions above a min value"),
+			@ApiResponse(code=401, message="Unauthorized access to this method.")
+		}
+	)	
 	@RequestMapping(path="/min", method=RequestMethod.GET)
 	public ResponseEntity<List<BankingTransaction>> greaterThan(@RequestParam(name="val", required=true) String value){
-		System.out.println("Inside transactions value greaterThan: " + value);
-		 
-		return new ResponseEntity<List<BankingTransaction>>(HttpStatus.OK);
+		logger.info("Inside transactions value greaterThan: " + value);
+		double doubleValue = Double.valueOf(value).doubleValue();
+		logger.debug("Inside transactions greaterThan, transformed to double: " + doubleValue);
+		
+		List<BankingTransaction> trxns = bankingService.findForValueAbove(doubleValue);
+		return new ResponseEntity<List<BankingTransaction>>(trxns, HttpStatus.OK);
 	}
 
+	@ApiOperation(value="Returns all transactions BELOW a max value", response=BankingTransaction.class)
+	@ApiResponses(value = {
+			@ApiResponse(code=200, message="Returns all transactions below a min value"),
+			@ApiResponse(code=401, message="Unauthorized access to this method.")
+		}
+	)	
 	@RequestMapping(path="/max", method=RequestMethod.GET)
 	public ResponseEntity<List<BankingTransaction>>    lessThan(@RequestParam(name="val", required=true) String value){
-		System.out.println("Inside transactions lessThan: " + value);
-		 
-		return new ResponseEntity(HttpStatus.OK);
+		logger.info("Inside transactions lessThan, string value: " + value);
+		double doubleValue = Double.valueOf(value).doubleValue();
+		logger.debug("Inside transactions lessThan, transformed to double: " + doubleValue);
+		
+		List<BankingTransaction> trxns = bankingService.findForValueBelow(doubleValue);
+
+		return new ResponseEntity<List<BankingTransaction>>(trxns, HttpStatus.OK);
 	}
 	
 	/**
@@ -80,7 +98,6 @@ public class BankingTransactionsEndpoint {
 			method=RequestMethod.GET, 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BankingTransaction> getTransaction(@PathVariable Long id){
-		System.out.println("Inside getTransaction, id: " + id);
 		logger.debug("Inside getTransaction, id: " + id);
 		BankingTransaction trxn = bankingService.getTransactionById(id);
 		ResponseEntity<BankingTransaction> resp;
@@ -110,10 +127,10 @@ public class BankingTransactionsEndpoint {
 			produces=MediaType.APPLICATION_JSON_VALUE,
 			consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BankingTransaction> addBankingTransaction(@RequestBody BankingTransaction toCreate){
-		System.out.println("Inside addBankingTransaction, with: " + toCreate.toString());
+		logger.info("Inside addBankingTransaction, with: " + toCreate.toString());
 		
 		if(toCreate.getId() != null){
-			System.err.println("Can't create a transaction that has an id present");
+			logger.error("Can't create a transaction that has an id present");
 			return new ResponseEntity<BankingTransaction>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		BankingTransaction created = bankingService.addBankingTransaction(toCreate);
@@ -139,7 +156,7 @@ public class BankingTransactionsEndpoint {
 			produces=MediaType.APPLICATION_JSON_VALUE,
 			consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BankingTransaction> updateTransaction(@RequestBody BankingTransaction toUpdate){
-		System.out.println("Inside updateTransaction, updating with: " + toUpdate);
+		logger.info("Inside updateTransaction, updating with: " + toUpdate);
 		
 		
 		if(toUpdate == null){
@@ -148,13 +165,13 @@ public class BankingTransactionsEndpoint {
 		}
 			
 		if(toUpdate.getId() == null){
-			System.err.println("Can't update a transaction that hasn't an id present");
+			logger.error("Can't update a transaction that hasn't an id present");
 			return new ResponseEntity<BankingTransaction>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		BankingTransaction t = bankingService.updateBankingTransaction(toUpdate); 
 		if(t==null){
-			System.err.println("Can't update a transaction that doesn't exist");
+			logger.error("Can't update a transaction that doesn't exist");
 			return new ResponseEntity<BankingTransaction>(HttpStatus.INTERNAL_SERVER_ERROR);			
 		}
 		return new ResponseEntity<BankingTransaction>(t, HttpStatus.OK);
@@ -177,13 +194,15 @@ public class BankingTransactionsEndpoint {
 			method=RequestMethod.DELETE, 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<BankingTransaction> deleteTransaction(@PathVariable Long id){
-		System.out.println("Inside deleteTransaction, id: " + id);
+		logger.info("Inside deleteTransaction, id: " + id);
 
 		BankingTransaction trxn = bankingService.deleteTransactionById(id);
 		
 		ResponseEntity<BankingTransaction> resp;
-		if (trxn == null)
+		if (trxn == null){
 			resp = new ResponseEntity<BankingTransaction>(HttpStatus.NOT_FOUND);
+			logger.warn("Transaction with {} not found", id);
+		}
 		else{
 			resp = new ResponseEntity<BankingTransaction>(HttpStatus.NO_CONTENT);
 		}

@@ -6,12 +6,25 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(value="/api")
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+@RestController
+@RequestMapping(value="/api")
+@Api()
 public class PingEndpoint {
 
-	@RequestMapping(value="/ping")
+	@ApiOperation(value="Certify that the application is up and running", response=String.class)
+	@ApiResponses(value = {
+			@ApiResponse(code=200, message="All banking transactions"),
+		}
+	)	
+	@RequestMapping(method=RequestMethod.GET, value="/ping")
 	public ResponseEntity<String> ping(){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Version", "1.0");

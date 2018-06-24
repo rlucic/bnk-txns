@@ -11,6 +11,8 @@ Endpoints
 - POST: http://localhost:8082/bnk-txns/api/v1.0/ (Create a new transaction, needs a trxn as payload without the id)
 - PUT: http://localhost:8082/bnk-txns/api/v1.0/ (Updates a transaction, needs a trxn as payload with the id)
 
+- GET: http://localhost:8082/bnk-txns/api/ping
+
 JSON structure for a transaction:
 {
 	"id": 1,

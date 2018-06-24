@@ -1,7 +1,9 @@
 package com.ro.banking.transactions.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,10 +18,12 @@ import io.swagger.annotations.ApiModel;
 public class BankingTransaction {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	Long id;
 	
+	@Column(name="value")
 	Double value;
+	@Column(name="currency")
 	String currency;
 	String from_acct;
 	String to_acct;

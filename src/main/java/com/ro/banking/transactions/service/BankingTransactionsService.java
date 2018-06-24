@@ -46,8 +46,6 @@ public class BankingTransactionsService {
 	}
 	
 	public BankingTransaction updateBankingTransaction(BankingTransaction trxn){
-		
-		
 		BankingTransaction updated;
 
 		boolean isPresent = transactionDAO.exists(trxn.getId());
@@ -63,6 +61,26 @@ public class BankingTransactionsService {
 		}
 		return updated;		
 		
-	}	
+	}
 	
+	
+	/**
+	 * Returns a list of transactions with a maximum monetary value 
+	 * 
+	 * @param val
+	 * @return
+	 */
+	public List<BankingTransaction> findForValueBelow(double val){
+		return transactionDAO.findForValueBelow(val);
+	}
+	
+	/**
+	 * Returns a list of transactions with a minimum monetary value 
+	 * 
+	 * @param val
+	 * @return
+	 */
+	public List<BankingTransaction> findForValueAbove(double val){
+		return transactionDAO.findForValueAbove(val);
+	}	
 }
