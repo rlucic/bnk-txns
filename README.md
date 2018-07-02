@@ -25,7 +25,7 @@ JSON structure for a transaction:
 }
 
 ## Using SonarQube
-###1) Running the commands from the command line
+### 1) Running the commands from the command line
 Usually SonarQube runs on port 9000. 
 The usual user/password: _admin/admin_
 
@@ -38,5 +38,5 @@ this will generate a jacoco.exec file in the /target directory
 In order to load the SonarQube, run the:
 **  mvn sonar:sonar **
 
-###2) Running the commands by executing tasks attached to the test lifecycle
+### 2) Running the commands by executing tasks attached to the test lifecycle
 
