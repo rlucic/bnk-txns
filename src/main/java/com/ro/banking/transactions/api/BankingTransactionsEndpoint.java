@@ -58,12 +58,14 @@ public class BankingTransactionsEndpoint {
 	)	
 	@RequestMapping(path="/min", method=RequestMethod.GET)
 	public ResponseEntity<List<BankingTransaction>> greaterThan(@RequestParam(name="val", required=true) String value){
-		logger.info("Inside transactions value greaterThan: " + value);
-		double doubleValue = Double.valueOf(value).doubleValue();
-		logger.debug("Inside transactions greaterThan, transformed to double: " + doubleValue);
+		logger.info("Inside transactions value greaterThan: {}", value);
+		
+		//double doubleValue = Double.valueOf(value).doubleValue();
+		double doubleValue = Double.parseDouble(value);
+		logger.debug("Inside transactions greaterThan, transformed to double: {}", doubleValue);
 		
 		List<BankingTransaction> trxns = bankingService.findForValueAbove(doubleValue);
-		return new ResponseEntity<List<BankingTransaction>>(trxns, HttpStatus.OK);
+		return new ResponseEntity<>(trxns, HttpStatus.OK);
 	}
 
 	@ApiOperation(value="Returns all transactions BELOW a max value", response=BankingTransaction.class)
@@ -75,12 +77,12 @@ public class BankingTransactionsEndpoint {
 	@RequestMapping(path="/max", method=RequestMethod.GET)
 	public ResponseEntity<List<BankingTransaction>>    lessThan(@RequestParam(name="val", required=true) String value){
 		logger.info("Inside transactions lessThan, string value: " + value);
-		double doubleValue = Double.valueOf(value).doubleValue();
+		double doubleValue = Double.parseDouble(value);
 		logger.debug("Inside transactions lessThan, transformed to double: " + doubleValue);
 		
 		List<BankingTransaction> trxns = bankingService.findForValueBelow(doubleValue);
 
-		return new ResponseEntity<List<BankingTransaction>>(trxns, HttpStatus.OK);
+		return new ResponseEntity<>(trxns, HttpStatus.OK);
 	}
 	
 	/**
@@ -102,9 +104,9 @@ public class BankingTransactionsEndpoint {
 		BankingTransaction trxn = bankingService.getTransactionById(id);
 		ResponseEntity<BankingTransaction> resp;
 		if (trxn == null)
-			resp = new ResponseEntity<BankingTransaction>(HttpStatus.NOT_FOUND);
+			resp = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		else{
-			resp = new ResponseEntity<BankingTransaction>(trxn, HttpStatus.OK);
+			resp = new ResponseEntity<>(trxn, HttpStatus.OK);
 		}
 		return resp;
 	}
@@ -135,7 +137,7 @@ public class BankingTransactionsEndpoint {
 		}
 		BankingTransaction created = bankingService.addBankingTransaction(toCreate);
 		
-		return new ResponseEntity<BankingTransaction>(HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 
@@ -200,11 +202,11 @@ public class BankingTransactionsEndpoint {
 		
 		ResponseEntity<BankingTransaction> resp;
 		if (trxn == null){
-			resp = new ResponseEntity<BankingTransaction>(HttpStatus.NOT_FOUND);
+			resp = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			logger.warn("Transaction with {} not found", id);
 		}
 		else{
-			resp = new ResponseEntity<BankingTransaction>(HttpStatus.NO_CONTENT);
+			resp = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return resp;
 

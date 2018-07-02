@@ -30,7 +30,7 @@ public class BnkTxnsApplication {
 	public void init(){
 		System.out.println("initializing the DB .... ");
 		
-		List<BankingTransaction> trxns = new ArrayList<BankingTransaction>();
+		List<BankingTransaction> trxns = new ArrayList<>();
 		BankingTransaction t1 = new BankingTransaction("acct-01-2523", "acct-01-2141", 100.50, "CAD", "cust-id-01", "cust-id-02");
 		BankingTransaction t2 = new BankingTransaction("acct-01-2141", "acct-02-6325", 44.78, "CAD", "cust-id-02", "cust-id-03");
 		trxns.add(t1);
