@@ -14,15 +14,25 @@ shows transactions between accounts
 - GET: http://localhost:8082/bnk-txns/api/ping
 
 JSON structure for a transaction:
+
 {
+
 	"id": 1,
+	
 	"value": 100.5,
+	
 	"currency": "CAD",
+	
 	"from_acct": "acct-01-2523",
+	
 	"to_acct": "acct-01-2141",
+	
 	"from_cust_id": "cust-id-01",
+	
 	"to_cust_id": "cust-id-02"
+	
 }
+
 
 ## Using SonarQube
 Usually SonarQube runs on port 9000. 
@@ -32,7 +42,9 @@ The usual user/password: _admin/admin_
 First add the two dependencies in the pom.xml (sonar scanner , Java Code Coverage - JaCoCo) 
 
 In order to get into the SonarQube DB (and visible in the UI) the code coverage the following need to be run from the command line:
+
 ** mvn org.jacoco:jacoco-maven-plugin:prepare-agent package **
+
 this will generate a jacoco.exec file in the /target directory
 
 In order to load the SonarQube, run the:
